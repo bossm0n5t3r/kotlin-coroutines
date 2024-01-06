@@ -14,6 +14,7 @@ fun main(): Unit =
             val childName = coroutineContext[CoroutineName]
             assert(childName == name) // true
             val childJob = coroutineContext[Job]
+            assert(childJob == null)
             assert(childJob != job) // false
             assert(childJob == job.children.first()) // true
         }
