@@ -1,11 +1,6 @@
-package chapter15
+package me.bossm0n5t3r.coroutines.chapter15
 
 import kotlinx.coroutines.runBlocking
-import me.bossm0n5t3r.coroutines.chapter15.FetchUserUseCase
-import me.bossm0n5t3r.coroutines.chapter15.Friend
-import me.bossm0n5t3r.coroutines.chapter15.Profile
-import me.bossm0n5t3r.coroutines.chapter15.User
-import me.bossm0n5t3r.coroutines.chapter15.UserDataRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
