@@ -1,4 +1,4 @@
-package chapter12
+package me.bossm0n5t3r.coroutines.chapter12
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
