@@ -6,14 +6,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
+import me.bossm0n5t3r.coroutines.common.RandomUtil.generateRandomString
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.util.UUID
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MockTest {
-    private fun generateRandomString() = UUID.randomUUID().toString()
-
     @Test
     fun `should load data concurrently`() =
         runTest {
