@@ -1,11 +1,27 @@
 package me.bossm0n5t3r.coroutines.chapter16
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+
+@OptIn(ExperimentalCoroutinesApi::class)
+private fun <T> CoroutineScope.fanIn(channels: List<ReceiveChannel<T>>): ReceiveChannel<T> =
+    produce {
+        for (channel in channels) {
+            launch {
+                for (elem in channel) {
+                    send(elem)
+                }
+            }
+        }
+    }
 
 private suspend fun sendString(
     channel: SendChannel<String>,
