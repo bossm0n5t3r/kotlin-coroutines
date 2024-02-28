@@ -6,6 +6,8 @@ plugins {
 group = "me.bossm0n5t3r.coroutines"
 version = "1.0-SNAPSHOT"
 
+private val kotlinxCoroutineVersion = "1.8.0"
+
 repositories {
     mavenCentral()
 }
@@ -13,8 +15,13 @@ repositories {
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.21")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$kotlinxCoroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxCoroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx3:$kotlinxCoroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutineVersion")
+
+    implementation("io.projectreactor:reactor-core:3.6.3")
 
     implementation("org.assertj:assertj-core:3.25.2")
 
