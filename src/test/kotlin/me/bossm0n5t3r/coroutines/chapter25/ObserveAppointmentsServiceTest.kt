@@ -59,7 +59,7 @@ class ObserveAppointmentsServiceTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `should eliminate elements that are same`() =
+    fun `should eliminate elements that same as the previous one`() =
         runTest {
             // given
             val repo =
