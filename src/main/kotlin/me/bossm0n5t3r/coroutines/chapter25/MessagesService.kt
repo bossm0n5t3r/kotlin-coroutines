@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.shareIn
 
 class MessagesService(
-    messagesSource: Flow<Message>,
+    private val messagesSource: Flow<Message>,
     scope: CoroutineScope,
 ) {
     private val source =
@@ -19,5 +19,9 @@ class MessagesService(
 
     fun observeMessages(fromUserId: String) =
         source
+            .filter { it.fromUserId == fromUserId }
+
+    fun observeMessagesUsingMessagesSource(fromUserId: String) =
+        messagesSource
             .filter { it.fromUserId == fromUserId }
 }

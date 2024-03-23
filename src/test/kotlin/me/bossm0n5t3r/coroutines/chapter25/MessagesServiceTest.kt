@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -205,5 +207,72 @@ class MessagesServiceTest {
                 )
                 messagesTurbine.expectNoEvents()
             }
+        }
+
+    private val infiniteFlow =
+        flow<Nothing> {
+            while (true) {
+                delay(100)
+            }
+        }
+
+    @Test
+    fun `should start at most one connection`() =
+        runTest {
+            // given
+            var connectionsCounter = 0
+            val source =
+                infiniteFlow
+                    .onStart { connectionsCounter++ }
+                    .onCompletion { connectionsCounter-- }
+            val service =
+                MessagesService(
+                    messagesSource = source,
+                    scope = backgroundScope,
+                )
+
+            // when
+            service.observeMessages("0")
+                .launchIn(backgroundScope)
+            service.observeMessages("1")
+                .launchIn(backgroundScope)
+            service.observeMessages("0")
+                .launchIn(backgroundScope)
+            service.observeMessages("2")
+                .launchIn(backgroundScope)
+            delay(1000)
+
+            // then
+            assertEquals(1, connectionsCounter)
+        }
+
+    @Test
+    fun `should start multiple connections to the source`() =
+        runTest {
+            // given
+            var connectionsCounter = 0
+            val source =
+                infiniteFlow
+                    .onStart { connectionsCounter++ }
+                    .onCompletion { connectionsCounter-- }
+            val service =
+                MessagesService(
+                    messagesSource = source,
+                    scope = backgroundScope,
+                )
+
+            // when
+            service.observeMessagesUsingMessagesSource("0")
+                .launchIn(backgroundScope)
+            service.observeMessagesUsingMessagesSource("1")
+                .launchIn(backgroundScope)
+            service.observeMessagesUsingMessagesSource("0")
+                .launchIn(backgroundScope)
+            service.observeMessagesUsingMessagesSource("2")
+                .launchIn(backgroundScope)
+            delay(1000)
+
+            // then
+            assertEquals(4, connectionsCounter)
         }
 }
