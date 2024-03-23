@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
@@ -86,6 +87,36 @@ class ObserveAppointmentsServiceTest {
                     1000L to listOf(anAppointment1),
                     2000L to listOf(anAppointment2),
                     3000L to listOf(anAppointment1),
+                ),
+                result,
+            )
+        }
+
+    @Test
+    fun `should retry when API exception`() =
+        runTest {
+            // given
+            val repo =
+                FakeAppointmentRepository(
+                    flow {
+                        emit(AppointmentsUpdate(listOf(anAppointment1)))
+                        throw ApiException(502, "Some message")
+                    },
+                )
+            val service = ObserveAppointmentsService(repo)
+
+            // when
+            val result =
+                service.observeAppointments()
+                    .take(3)
+                    .toList()
+
+            // then
+            assertEquals(
+                listOf(
+                    listOf(anAppointment1),
+                    listOf(anAppointment1),
+                    listOf(anAppointment1),
                 ),
                 result,
             )
