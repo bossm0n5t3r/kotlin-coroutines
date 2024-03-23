@@ -26,6 +26,8 @@ dependencies {
     implementation("org.assertj:assertj-core:3.25.2")
 
     implementation("io.mockk:mockk:1.13.9")
+
+    testImplementation("app.cash.turbine:turbine:1.1.0")
 }
 
 tasks.test {
