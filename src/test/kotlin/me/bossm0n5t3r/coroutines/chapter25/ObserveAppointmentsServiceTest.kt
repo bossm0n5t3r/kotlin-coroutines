@@ -1,8 +1,13 @@
 package me.bossm0n5t3r.coroutines.chapter25
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -44,6 +49,43 @@ class ObserveAppointmentsServiceTest {
                 listOf(
                     listOf(anAppointment1),
                     listOf(anAppointment2),
+                ),
+                result,
+            )
+        }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `should eliminate elements that are same`() =
+        runTest {
+            // given
+            val repo =
+                FakeAppointmentRepository(
+                    flow {
+                        delay(1000)
+                        emit(AppointmentsUpdate(listOf(anAppointment1)))
+                        emit(AppointmentsUpdate(listOf(anAppointment1)))
+                        delay(1000)
+                        emit(AppointmentsUpdate(listOf(anAppointment2)))
+                        delay(1000)
+                        emit(AppointmentsUpdate(listOf(anAppointment2)))
+                        emit(AppointmentsUpdate(listOf(anAppointment1)))
+                    },
+                )
+            val service = ObserveAppointmentsService(repo)
+
+            // when
+            val result =
+                service.observeAppointments()
+                    .map { currentTime to it }
+                    .toList()
+
+            // then
+            assertEquals(
+                listOf(
+                    1000L to listOf(anAppointment1),
+                    2000L to listOf(anAppointment2),
+                    3000L to listOf(anAppointment1),
                 ),
                 result,
             )
