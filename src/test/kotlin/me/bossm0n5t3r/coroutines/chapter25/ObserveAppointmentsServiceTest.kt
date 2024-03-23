@@ -3,6 +3,7 @@ package me.bossm0n5t3r.coroutines.chapter25
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.time.Instant
 import java.time.temporal.ChronoUnit
@@ -117,6 +119,44 @@ class ObserveAppointmentsServiceTest {
                     listOf(anAppointment1),
                     listOf(anAppointment1),
                     listOf(anAppointment1),
+                ),
+                result,
+            )
+        }
+
+    @Test
+    fun `should retry when API exception with the code 5XX`() =
+        runTest {
+            // given
+            var retried = false
+            val someException = object : Exception() {}
+            val repo =
+                FakeAppointmentRepository(
+                    flow {
+                        emit(AppointmentsUpdate(listOf(anAppointment1)))
+                        if (!retried) {
+                            retried = true
+                            throw ApiException(502, "Some message")
+                        } else {
+                            throw someException
+                        }
+                    },
+                )
+            val service = ObserveAppointmentsService(repo)
+
+            // when
+            val result =
+                service.observeAppointments()
+                    .catch<Any> { emit(it) }
+                    .toList()
+
+            // then
+            assertTrue(retried)
+            assertEquals(
+                listOf(
+                    listOf(anAppointment1),
+                    listOf(anAppointment1),
+                    someException,
                 ),
                 result,
             )
