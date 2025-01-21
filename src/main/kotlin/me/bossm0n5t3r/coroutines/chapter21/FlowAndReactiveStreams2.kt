@@ -10,17 +10,20 @@ suspend fun main(): Unit =
     coroutineScope {
         val flow = flowOf(1, 2, 3, 4, 5)
 
-        flow.asFlux()
+        flow
+            .asFlux()
             .doOnNext { print(it) } // 12345
             .subscribe()
 
         println()
 
-        flow.asFlowable()
+        flow
+            .asFlowable()
             .subscribe { print(it) } // 12345
 
         println()
 
-        flow.asObservable()
+        flow
+            .asObservable()
             .subscribe { print(it) } // 12345
     }

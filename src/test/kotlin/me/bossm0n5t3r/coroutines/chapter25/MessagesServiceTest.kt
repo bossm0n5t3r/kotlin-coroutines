@@ -40,7 +40,8 @@ class MessagesServiceTest {
 
             // when
             val result =
-                service.observeMessages("0")
+                service
+                    .observeMessages("0")
                     .toList() // Here we'll wait forever!
 
             // then
@@ -71,7 +72,8 @@ class MessagesServiceTest {
 
             // when
             val result =
-                service.observeMessages("0")
+                service
+                    .observeMessages("0")
                     .take(2)
                     .toList()
 
@@ -104,7 +106,8 @@ class MessagesServiceTest {
 
             // when
             val emittedMessages = mutableListOf<Message>()
-            service.observeMessages("0")
+            service
+                .observeMessages("0")
                 .onEach { emittedMessages.add(it) }
                 .launchIn(backgroundScope)
             delay(1)
@@ -160,7 +163,8 @@ class MessagesServiceTest {
 
             // when
             val emittedMessages =
-                service.observeMessages("0")
+                service
+                    .observeMessages("0")
                     .toListDuring(1.milliseconds)
 
             // then
@@ -232,13 +236,17 @@ class MessagesServiceTest {
                 )
 
             // when
-            service.observeMessages("0")
+            service
+                .observeMessages("0")
                 .launchIn(backgroundScope)
-            service.observeMessages("1")
+            service
+                .observeMessages("1")
                 .launchIn(backgroundScope)
-            service.observeMessages("0")
+            service
+                .observeMessages("0")
                 .launchIn(backgroundScope)
-            service.observeMessages("2")
+            service
+                .observeMessages("2")
                 .launchIn(backgroundScope)
             delay(1000)
 
@@ -262,13 +270,17 @@ class MessagesServiceTest {
                 )
 
             // when
-            service.observeMessagesUsingMessagesSource("0")
+            service
+                .observeMessagesUsingMessagesSource("0")
                 .launchIn(backgroundScope)
-            service.observeMessagesUsingMessagesSource("1")
+            service
+                .observeMessagesUsingMessagesSource("1")
                 .launchIn(backgroundScope)
-            service.observeMessagesUsingMessagesSource("0")
+            service
+                .observeMessagesUsingMessagesSource("0")
                 .launchIn(backgroundScope)
-            service.observeMessagesUsingMessagesSource("2")
+            service
+                .observeMessagesUsingMessagesSource("2")
                 .launchIn(backgroundScope)
             delay(1000)
 

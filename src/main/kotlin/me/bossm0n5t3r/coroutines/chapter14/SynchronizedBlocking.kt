@@ -11,7 +11,8 @@ fun main() =
     runBlocking {
         val lock = Any()
         massiveRun {
-            synchronized(lock) { // We are blocking threads!
+            synchronized(lock) {
+                // We are blocking threads!
                 counter++
             }
         }

@@ -28,7 +28,8 @@ suspend fun main() {
 
     val downloader = UserDownloader(FakeNetworkService())
     coroutineScope {
-        repeat(100_000) { // FIXME times should be 1_000_000. But it is too slow
+        repeat(100_000) {
+            // FIXME times should be 1_000_000. But it is too slow
             launch {
                 downloader.fetchUser(it)
             }

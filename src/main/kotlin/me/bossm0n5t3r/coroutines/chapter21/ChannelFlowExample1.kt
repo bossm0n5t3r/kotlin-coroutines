@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 
-data class UserInChannelFlowExample1(val name: String)
+data class UserInChannelFlowExample1(
+    val name: String,
+)
 
 interface UserApiInChannelFlowExample1 {
     suspend fun takePage(pageNumber: Int): List<UserInChannelFlowExample1>

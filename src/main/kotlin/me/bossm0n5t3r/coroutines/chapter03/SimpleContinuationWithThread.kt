@@ -7,7 +7,8 @@ import kotlin.coroutines.suspendCoroutine
 suspend fun main() { // <- suspend 가 붙은 main
     println("Before")
 
-    suspendCoroutine { continuation -> // <- 여기서 중단!
+    suspendCoroutine { continuation ->
+        // <- 여기서 중단!
         thread {
             println("Suspended")
             Thread.sleep(1000)

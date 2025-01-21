@@ -17,8 +17,7 @@ suspend fun main() {
         .map {
             delay(1000)
             it.lowercase()
-        }
-        .collect { println(it) }
+        }.collect { println(it) }
 }
 
 // (1 sec)

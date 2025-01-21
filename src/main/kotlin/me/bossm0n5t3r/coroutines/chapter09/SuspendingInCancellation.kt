@@ -15,7 +15,8 @@ suspend fun main(): Unit =
                 println("Job is done")
             } finally {
                 println("Finally")
-                launch { // will be ignored
+                launch {
+                    // will be ignored
                     println("Will not be printed")
                 }
                 delay(1000) // here exception is thrown

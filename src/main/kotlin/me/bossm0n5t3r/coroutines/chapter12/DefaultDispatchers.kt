@@ -8,7 +8,8 @@ suspend fun main() =
     coroutineScope {
         repeat(1000) {
             // runBlocking 은 디스패처가 설정되어 있지 않으면 자신만의 디스패처를 사용함
-            launch { // or launch(Dispatchers.Default) {
+            launch {
+                // or launch(Dispatchers.Default) {
                 // To make it busy
                 List(1000) { Random.nextLong() }.maxOrNull()
 

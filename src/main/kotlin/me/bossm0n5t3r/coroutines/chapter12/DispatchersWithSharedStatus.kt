@@ -10,7 +10,8 @@ private var i = 0
 suspend fun main(): Unit =
     coroutineScope {
         repeat(10_000) {
-            launch(Dispatchers.IO) { // or Default
+            launch(Dispatchers.IO) {
+                // or Default
                 i++
             }
         }

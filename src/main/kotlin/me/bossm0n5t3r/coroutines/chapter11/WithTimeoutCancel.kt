@@ -7,16 +7,20 @@ import kotlinx.coroutines.withTimeout
 
 suspend fun main(): Unit =
     coroutineScope {
-        launch { // 1
-            launch { // 2, cancelled by its parent
+        launch {
+            // 1
+            launch {
+                // 2, cancelled by its parent
                 delay(2000)
                 println("Will not be printed")
             }
-            withTimeout(1000) { // we cancel launch
+            withTimeout(1000) {
+                // we cancel launch
                 delay(1500) // throw TimeoutCancellationException
             }
         }
-        launch { // 3
+        launch {
+            // 3
             delay(2000)
             println("Done")
         }

@@ -22,7 +22,8 @@ suspend fun main(): Unit =
     coroutineScope {
         val f1 = List(1_000) { "$it" }.asFlow()
         val f2 =
-            List(1_000) { "$it" }.asFlow()
+            List(1_000) { "$it" }
+                .asFlow()
                 .counter()
 
         launch { println(f1.counter().last()) } // less than 4000

@@ -5,11 +5,13 @@ import kotlinx.coroutines.runBlocking
 
 fun main() =
     runBlocking {
-        flow { // 1
+        flow {
+            // 1
             emit("A")
             emit("B")
             emit("C")
-        }.collect { value -> // 2
+        }.collect { value ->
+            // 2
             println(value)
         }
     }

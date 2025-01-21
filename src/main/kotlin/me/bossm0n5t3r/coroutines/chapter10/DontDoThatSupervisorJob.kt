@@ -9,7 +9,8 @@ fun main(): Unit =
     runBlocking {
         // Don't do that, SupervisorJob with one child
         // and no parent works similar to just Job
-        launch(SupervisorJob()) { // 1
+        launch(SupervisorJob()) {
+            // 1
             launch {
                 delay(1000)
                 throw Error("Some error")

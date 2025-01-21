@@ -9,16 +9,22 @@ import reactor.core.publisher.Flux
 
 suspend fun main() =
     coroutineScope {
-        Flux.range(1, 5).asFlow()
+        Flux
+            .range(1, 5)
+            .asFlow()
             .collect { print(it) } // 12345
 
         println()
 
-        Flowable.range(1, 5).asFlow()
+        Flowable
+            .range(1, 5)
+            .asFlow()
             .collect { print(it) } // 12345
 
         println()
 
-        Observable.range(1, 5).asFlow()
+        Observable
+            .range(1, 5)
+            .asFlow()
             .collect { print(it) } // 12345
     }

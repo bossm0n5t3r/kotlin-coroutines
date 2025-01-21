@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SendNotificationsTest {
-    data class Notification(val id: Int)
+    data class Notification(
+        val id: Int,
+    )
 
     interface NotificationsService {
         val notificationsSent: MutableSet<Notification>
@@ -45,9 +47,7 @@ class SendNotificationsTest {
     ) : NotificationsRepository {
         override val notificationsMarkedAsSent: MutableSet<Int> = mutableSetOf()
 
-        override fun notificationsToSend(): List<Notification> {
-            return notifications
-        }
+        override fun notificationsToSend(): List<Notification> = notifications
 
         override suspend fun markAsSent(id: Int) {
             notificationsMarkedAsSent.add(id)

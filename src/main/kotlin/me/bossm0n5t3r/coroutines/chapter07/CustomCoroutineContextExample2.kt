@@ -5,10 +5,12 @@ import java.util.UUID
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 
-private data class User(val id: String, val name: String)
+private data class User(
+    val id: String,
+    val name: String,
+)
 
-private abstract class UuidProviderContext :
-    CoroutineContext.Element {
+private abstract class UuidProviderContext : CoroutineContext.Element {
     abstract fun nextUuid(): String
 
     override val key: CoroutineContext.Key<*> = Key
@@ -30,8 +32,7 @@ private class FakeUuidProviderContext(
 private suspend fun nextUuid(): String =
     checkNotNull(coroutineContext[UuidProviderContext]) {
         "UuidProviderContext not present"
-    }
-        .nextUuid()
+    }.nextUuid()
 
 // function under test
 private suspend fun makeUser(name: String) =

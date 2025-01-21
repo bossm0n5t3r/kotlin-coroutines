@@ -21,7 +21,8 @@ import kotlin.coroutines.CoroutineContext
 class MapAsyncTest {
     private suspend fun <T, R> Iterable<T>.mapAsync(transformation: suspend (T) -> R): List<R> =
         coroutineScope {
-            this@mapAsync.map { async { transformation(it) } }
+            this@mapAsync
+                .map { async { transformation(it) } }
                 .awaitAll()
         }
 

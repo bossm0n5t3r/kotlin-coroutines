@@ -79,7 +79,8 @@ class ObserveAppointmentsServiceTest {
 
             // when
             val result =
-                service.observeAppointments()
+                service
+                    .observeAppointments()
                     .map { currentTime to it }
                     .toList()
 
@@ -109,7 +110,8 @@ class ObserveAppointmentsServiceTest {
 
             // when
             val result =
-                service.observeAppointments()
+                service
+                    .observeAppointments()
                     .take(3)
                     .toList()
 
@@ -146,7 +148,8 @@ class ObserveAppointmentsServiceTest {
 
             // when
             val result =
-                service.observeAppointments()
+                service
+                    .observeAppointments()
                     .catch<Any> { emit(it) }
                     .toList()
 

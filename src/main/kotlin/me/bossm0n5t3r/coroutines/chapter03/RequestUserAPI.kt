@@ -12,13 +12,12 @@ private fun requestUser(callback: (User) -> Unit) {
     }
 }
 
-private suspend fun requestUser(): User {
-    return suspendCoroutine { cont ->
+private suspend fun requestUser(): User =
+    suspendCoroutine { cont ->
         requestUser { user ->
             cont.resume(user)
         }
     }
-}
 
 suspend fun main() {
     println("Before")

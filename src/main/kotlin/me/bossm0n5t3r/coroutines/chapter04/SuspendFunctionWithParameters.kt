@@ -85,7 +85,11 @@ private val executor =
         Thread(it, "scheduler").apply { isDaemon = true }
     }
 
-data class User(val id: String, val name: String)
+data class User(
+    val id: String,
+    val name: String,
+)
+
 object ApiException : Throwable("Fake API exception")
 
 fun getUserId(

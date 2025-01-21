@@ -11,7 +11,8 @@ suspend fun main() {
             "UserName"
         }
 
-    function.asFlow()
+    function
+        .asFlow()
         .collect { println(it) }
 }
 

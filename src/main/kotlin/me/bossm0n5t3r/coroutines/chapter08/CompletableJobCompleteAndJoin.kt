@@ -8,11 +8,13 @@ import kotlinx.coroutines.runBlocking
 fun main() =
     runBlocking {
         val job = Job()
-        launch(job) { // the new job replaces one from parent
+        launch(job) {
+            // the new job replaces one from parent
             delay(1000)
             println("Text 1")
         }
-        launch(job) { // the new job replaces one from parent
+        launch(job) {
+            // the new job replaces one from parent
             delay(2000)
             println("Text 2")
         }
