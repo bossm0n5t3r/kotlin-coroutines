@@ -1,33 +1,28 @@
 plugins {
-    kotlin("jvm") version "1.9.21"
-    id("org.jlleitschuh.gradle.ktlint") version "12.0.3"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktlint)
 }
 
 group = "me.bossm0n5t3r.coroutines"
 version = "1.0-SNAPSHOT"
-
-private val kotlinxCoroutineVersion = "1.8.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.21")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.reactive)
+    implementation(libs.kotlinx.coroutines.reactor)
+    implementation(libs.kotlinx.coroutines.rx3)
+    implementation(libs.kotlinx.coroutines.test)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutineVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$kotlinxCoroutineVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxCoroutineVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx3:$kotlinxCoroutineVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutineVersion")
+    implementation(libs.reactor.core)
+    implementation(libs.assertj.core)
+    implementation(libs.mockk)
 
-    implementation("io.projectreactor:reactor-core:3.6.3")
-
-    implementation("org.assertj:assertj-core:3.25.2")
-
-    implementation("io.mockk:mockk:1.13.9")
-
-    testImplementation("app.cash.turbine:turbine:1.1.0")
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.turbine)
 }
 
 tasks.test {
@@ -39,5 +34,5 @@ kotlin {
 }
 
 ktlint {
-    version.set("1.0.0")
+    version.set("1.5.0")
 }
