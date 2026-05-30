@@ -16,12 +16,11 @@ fun <T> flowInUnderstandingFlow8(builder: suspend FlowCollectorInUnderstandingFl
     }
 
 suspend fun main() {
-    val f: FlowInUnderstandingFlow8<String> =
-        flowInUnderstandingFlow8 {
-            emit("A")
-            emit("B")
-            emit("C")
-        }
+    val f: FlowInUnderstandingFlow8<String> = flowInUnderstandingFlow8 {
+        emit("A")
+        emit("B")
+        emit("C")
+    }
     f.collect { print(it) } // ABC
     f.collect { print(it) } // ABC
 }

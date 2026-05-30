@@ -11,38 +11,36 @@ import org.junit.jupiter.api.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class FetchUserDataTest {
     @Test
-    fun `should load data concurrently`() =
-        runTest {
-            // given
-            val userRepo = FakeUserDataRepository()
-            val useCase = FetchUserUseCase(userRepo)
+    fun `should load data concurrently`() = runTest {
+        // given
+        val userRepo = FakeUserDataRepository()
+        val useCase = FetchUserUseCase(userRepo)
 
-            // when
-            useCase.fetchUserData()
+        // when
+        useCase.fetchUserData()
 
-            // then
-            assertEquals(1000, currentTime)
-        }
+        // then
+        assertEquals(1000, currentTime)
+    }
 
     @Test
-    fun `should construct user`() =
-        runBlocking {
-            // given
-            val repo = FakeUserDataRepository()
-            val useCase = FetchUserUseCase(repo)
+    fun `should construct user`() = runBlocking {
+        // given
+        val repo = FakeUserDataRepository()
+        val useCase = FetchUserUseCase(repo)
 
-            // when
-            val result = useCase.fetchUserData()
+        // when
+        val result = useCase.fetchUserData()
 
-            // then
-            val expectedUser =
-                User(
-                    name = "Ben",
-                    friends = listOf(Friend("some-friend-id-1")),
-                    profile = Profile("Example description"),
-                )
-            assertEquals(expectedUser, result)
-        }
+        // then
+        val expectedUser =
+            User(
+                name = "Ben",
+                friends = listOf(Friend("some-friend-id-1")),
+                profile = Profile("Example description"),
+            )
+        assertEquals(expectedUser, result)
+    }
 
     class FakeUserDataRepository : UserDataRepository {
         override suspend fun getName(): String {

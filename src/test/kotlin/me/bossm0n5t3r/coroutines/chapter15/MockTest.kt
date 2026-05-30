@@ -13,36 +13,38 @@ import org.junit.jupiter.api.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class MockTest {
     @Test
-    fun `should load data concurrently`() =
-        runTest {
-            // given
-            val userRepo = mockk<UserDataRepository>()
-            val aName = generateRandomString()
-            val someFriends =
-                listOf(
-                    Friend(generateRandomString()),
-                    Friend(generateRandomString()),
-                    Friend(generateRandomString()),
-                )
-            val aProfile = Profile(generateRandomString())
-            coEvery { userRepo.getName() } coAnswers {
+    fun `should load data concurrently`() = runTest {
+        // given
+        val userRepo = mockk<UserDataRepository>()
+        val aName = generateRandomString()
+        val someFriends =
+            listOf(
+                Friend(generateRandomString()),
+                Friend(generateRandomString()),
+                Friend(generateRandomString()),
+            )
+        val aProfile = Profile(generateRandomString())
+        coEvery { userRepo.getName() } coAnswers
+            {
                 delay(600)
                 aName
             }
-            coEvery { userRepo.getFriends() } coAnswers {
+        coEvery { userRepo.getFriends() } coAnswers
+            {
                 delay(700)
                 someFriends
             }
-            coEvery { userRepo.getProfile() } coAnswers {
+        coEvery { userRepo.getProfile() } coAnswers
+            {
                 delay(800)
                 aProfile
             }
-            val useCase = FetchUserUseCase(userRepo)
+        val useCase = FetchUserUseCase(userRepo)
 
-            // when
-            useCase.fetchUserData()
+        // when
+        useCase.fetchUserData()
 
-            // then
-            assertEquals(800, currentTime)
-        }
+        // then
+        assertEquals(800, currentTime)
+    }
 }

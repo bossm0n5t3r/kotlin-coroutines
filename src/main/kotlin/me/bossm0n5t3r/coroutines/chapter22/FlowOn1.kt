@@ -6,23 +6,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
-private fun usersFlow(): Flow<String> =
-    flow {
-        repeat(2) {
-            val ctx = currentCoroutineContext()
-            val name = ctx[CoroutineName]?.name
-            emit("User$it in $name")
-        }
+private fun usersFlow(): Flow<String> = flow {
+    repeat(2) {
+        val ctx = currentCoroutineContext()
+        val name = ctx[CoroutineName]?.name
+        emit("User$it in $name")
     }
+}
 
 suspend fun main() {
     val users = usersFlow()
-    withContext(CoroutineName("Name1")) {
-        users.collect { println(it) }
-    }
-    withContext(CoroutineName("Name2")) {
-        users.collect { println(it) }
-    }
+    withContext(CoroutineName("Name1")) { users.collect { println(it) } }
+    withContext(CoroutineName("Name2")) { users.collect { println(it) } }
 }
 
 // User0 in Name1

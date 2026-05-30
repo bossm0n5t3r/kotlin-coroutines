@@ -7,14 +7,13 @@ import kotlinx.coroutines.launch
 
 private var i = 0
 
-suspend fun main(): Unit =
-    coroutineScope {
-        repeat(10_000) {
-            launch(Dispatchers.IO) {
-                // or Default
-                i++
-            }
+suspend fun main(): Unit = coroutineScope {
+    repeat(10_000) {
+        launch(Dispatchers.IO) {
+            // or Default
+            i++
         }
-        delay(1000)
-        println(i) // 9762, 9804, 9813, ...
     }
+    delay(1000)
+    println(i) // 9762, 9804, 9813, ...
+}

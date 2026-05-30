@@ -6,29 +6,24 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-suspend fun main(): Unit =
-    coroutineScope {
-        val channel =
-            Channel<Int>(
-                capacity = 2,
-                onBufferOverflow = BufferOverflow.DROP_OLDEST,
-            )
+suspend fun main(): Unit = coroutineScope {
+    val channel = Channel<Int>(capacity = 2, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-        launch {
-            repeat(5) { index ->
-                channel.send(index * 2)
-                delay(100)
-                println("Sent")
-            }
-            channel.close()
+    launch {
+        repeat(5) { index ->
+            channel.send(index * 2)
+            delay(100)
+            println("Sent")
         }
-
-        delay(1000)
-        for (element in channel) {
-            println(element)
-            delay(1000)
-        }
+        channel.close()
     }
+
+    delay(1000)
+    for (element in channel) {
+        println(element)
+        delay(1000)
+    }
+}
 
 // Sent
 // (0.1 sec)

@@ -9,9 +9,7 @@ private suspend fun getUserName(): String {
 }
 
 suspend fun main() {
-    ::getUserName
-        .asFlow()
-        .collect { println(it) }
+    ::getUserName.asFlow().collect { println(it) }
 }
 
 // (1 sec)

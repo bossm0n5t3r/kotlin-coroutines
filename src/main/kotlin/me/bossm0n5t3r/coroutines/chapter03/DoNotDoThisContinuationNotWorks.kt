@@ -8,9 +8,7 @@ import kotlin.coroutines.suspendCoroutine
 private var continuation: Continuation<Unit>? = null
 
 private suspend fun suspendAndSetContinuation() {
-    suspendCoroutine { cont ->
-        continuation = cont
-    }
+    suspendCoroutine { cont -> continuation = cont }
 }
 
 suspend fun main() {

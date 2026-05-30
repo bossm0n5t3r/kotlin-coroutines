@@ -4,7 +4,5 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 
 suspend fun main() {
-    flowOf(1, 2, 3, 4)
-        .onEach { print(it) }
-        .collect {} // 1234
+    flowOf(1, 2, 3, 4).onEach { print(it) }.collect {} // 1234
 }

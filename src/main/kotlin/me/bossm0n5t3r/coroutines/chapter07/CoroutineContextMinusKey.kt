@@ -14,9 +14,7 @@ fun main() {
     assert(ctx2[Job]?.isActive == true) // true
 
     val name2 = "Name2"
-    val ctx3 =
-        (ctx + CoroutineName(name2))
-            .minusKey(CoroutineName)
+    val ctx3 = (ctx + CoroutineName(name2)).minusKey(CoroutineName)
     assert(ctx3[CoroutineName]?.name == null) // null
     assert(ctx3[Job]?.isActive == true) // true
 }

@@ -7,14 +7,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
 
-private fun getSequence(): Sequence<String> =
-    sequence {
-        repeat(3) {
-            Thread.sleep(1000)
-            // the same result as if there were delay(1000) here
-            yield("User$it")
-        }
+private fun getSequence(): Sequence<String> = sequence {
+    repeat(3) {
+        Thread.sleep(1000)
+        // the same result as if there were delay(1000) here
+        yield("User$it")
     }
+}
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 suspend fun main() {

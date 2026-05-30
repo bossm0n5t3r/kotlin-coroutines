@@ -12,9 +12,7 @@ import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SendNotificationsTest {
-    data class Notification(
-        val id: Int,
-    )
+    data class Notification(val id: Int)
 
     interface NotificationsService {
         val notificationsSent: MutableSet<Notification>
@@ -22,9 +20,7 @@ class SendNotificationsTest {
         suspend fun send(notification: Notification)
     }
 
-    class FakeNotificationsService(
-        private val delayMillis: Long,
-    ) : NotificationsService {
+    class FakeNotificationsService(private val delayMillis: Long) : NotificationsService {
         override val notificationsSent: MutableSet<Notification> = mutableSetOf()
 
         override suspend fun send(notification: Notification) {
@@ -62,14 +58,11 @@ class SendNotificationsTest {
     ) {
         fun sendNotifications() {
             notificationsScope.launch {
-                val notifications =
-                    notificationsRepository
-                        .notificationsToSend()
+                val notifications = notificationsRepository.notificationsToSend()
                 for (notification in notifications) {
                     launch {
                         notificationsService.send(notification)
-                        notificationsRepository
-                            .markAsSent(notification.id)
+                        notificationsRepository.markAsSent(notification.id)
                     }
                 }
             }
@@ -80,15 +73,8 @@ class SendNotificationsTest {
     fun testSendNotifications() {
         // given
         val notifications = List(100) { Notification(it) }
-        val repo =
-            FakeNotificationsRepository(
-                delayMillis = 200,
-                notifications = notifications,
-            )
-        val service =
-            FakeNotificationsService(
-                delayMillis = 300,
-            )
+        val repo = FakeNotificationsRepository(delayMillis = 200, notifications = notifications)
+        val service = FakeNotificationsService(delayMillis = 300)
         val testScope = TestScope()
         val sender =
             NotificationsSender(
@@ -102,14 +88,8 @@ class SendNotificationsTest {
         testScope.advanceUntilIdle()
 
         // then all notifications are sent and marked
-        assertEquals(
-            notifications.toSet(),
-            service.notificationsSent.toSet(),
-        )
-        assertEquals(
-            notifications.map { it.id }.toSet(),
-            repo.notificationsMarkedAsSent.toSet(),
-        )
+        assertEquals(notifications.toSet(), service.notificationsSent.toSet())
+        assertEquals(notifications.map { it.id }.toSet(), repo.notificationsMarkedAsSent.toSet())
 
         // and notifications are sent concurrently
         assertEquals(500, testScope.currentTime) // FIXME expected should be 700, why?

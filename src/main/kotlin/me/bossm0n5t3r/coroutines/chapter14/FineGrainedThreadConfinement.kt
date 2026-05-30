@@ -9,24 +9,15 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalCoroutinesApi::class)
 suspend fun main() {
-    class UserDownloader(
-        private val api: NetworkService,
-    ) {
+    class UserDownloader(private val api: NetworkService) {
         private val users = mutableListOf<User>()
-        private val dispatcher =
-            Dispatchers.IO
-                .limitedParallelism(1)
+        private val dispatcher = Dispatchers.IO.limitedParallelism(1)
 
-        suspend fun downloaded(): List<User> =
-            withContext(dispatcher) {
-                users.toList()
-            }
+        suspend fun downloaded(): List<User> = withContext(dispatcher) { users.toList() }
 
         suspend fun fetchUser(id: Int) {
             val newUser = api.fetchUser(id)
-            withContext(dispatcher) {
-                users += newUser
-            }
+            withContext(dispatcher) { users += newUser }
         }
     }
 
@@ -38,12 +29,6 @@ suspend fun main() {
     }
 
     val downloader = UserDownloader(FakeNetworkService())
-    coroutineScope {
-        repeat(1_000_000) {
-            launch {
-                downloader.fetchUser(it)
-            }
-        }
-    }
+    coroutineScope { repeat(1_000_000) { launch { downloader.fetchUser(it) } } }
     print(downloader.downloaded().size) // 1000000
 }

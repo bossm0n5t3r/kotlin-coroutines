@@ -5,9 +5,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 
 suspend fun main() {
-    flowOf("A", "B", "C")
-        .onEach { delay(1000) }
-        .collect { println(it) }
+    flowOf("A", "B", "C").onEach { delay(1000) }.collect { println(it) }
 }
 
 // (1 sec)

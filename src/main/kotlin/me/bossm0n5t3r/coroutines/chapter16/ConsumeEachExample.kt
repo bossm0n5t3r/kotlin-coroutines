@@ -6,28 +6,25 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-suspend fun main(): Unit =
-    coroutineScope {
-        val channel = Channel<Int>()
-        launch {
-            repeat(5) { index ->
-                println("Producing next one")
-                delay(1000)
-                channel.send(index * 2)
-            }
-            channel.close()
+suspend fun main(): Unit = coroutineScope {
+    val channel = Channel<Int>()
+    launch {
+        repeat(5) { index ->
+            println("Producing next one")
+            delay(1000)
+            channel.send(index * 2)
         }
-
-        launch {
-            channel.consumeEach { element ->
-                println(element)
-            }
-            // or
-//            for (element in channel) {
-//                println(element)
-//            }
-        }
+        channel.close()
     }
+
+    launch {
+        channel.consumeEach { element -> println(element) }
+        // or
+        //            for (element in channel) {
+        //                println(element)
+        //            }
+    }
+}
 
 // Producing next one
 // (1 sec)

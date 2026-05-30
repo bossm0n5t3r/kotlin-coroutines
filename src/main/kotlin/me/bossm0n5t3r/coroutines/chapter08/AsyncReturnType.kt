@@ -6,12 +6,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
-fun main(): Unit =
-    runBlocking {
-        val deferred: Deferred<String> =
-            async {
-                delay(1000)
-                "Test"
-            }
-        val job: Job = deferred
+fun main(): Unit = runBlocking {
+    val deferred: Deferred<String> = async {
+        delay(1000)
+        "Test"
     }
+    val job: Job = deferred
+}

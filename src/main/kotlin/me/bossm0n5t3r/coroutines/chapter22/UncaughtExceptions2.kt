@@ -6,11 +6,10 @@ import kotlinx.coroutines.flow.onStart
 
 private class MyErrorInUncaughtExceptions2 : Throwable("My error")
 
-private val flowInUncaughtExceptions2 =
-    flow {
-        emit("Message1")
-        emit("Message2")
-    }
+private val flowInUncaughtExceptions2 = flow {
+    emit("Message1")
+    emit("Message2")
+}
 
 suspend fun main() {
     flowInUncaughtExceptions2

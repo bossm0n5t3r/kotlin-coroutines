@@ -6,22 +6,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.shareIn
 
-class MessagesService(
-    private val messagesSource: Flow<Message>,
-    scope: CoroutineScope,
-) {
+class MessagesService(private val messagesSource: Flow<Message>, scope: CoroutineScope) {
     private val source =
-        messagesSource
-            .shareIn(
-                scope = scope,
-                started = SharingStarted.WhileSubscribed(),
-            )
+        messagesSource.shareIn(scope = scope, started = SharingStarted.WhileSubscribed())
 
-    fun observeMessages(fromUserId: String) =
-        source
-            .filter { it.fromUserId == fromUserId }
+    fun observeMessages(fromUserId: String) = source.filter { it.fromUserId == fromUserId }
 
-    fun observeMessagesUsingMessagesSource(fromUserId: String) =
-        messagesSource
-            .filter { it.fromUserId == fromUserId }
+    fun observeMessagesUsingMessagesSource(fromUserId: String) = messagesSource.filter {
+        it.fromUserId == fromUserId
+    }
 }

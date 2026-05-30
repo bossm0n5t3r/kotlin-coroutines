@@ -5,11 +5,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-fun main(): Unit =
-    runBlocking {
-        val job: Job =
-            launch {
-                delay(1000)
-                println("Test")
-            }
+fun main(): Unit = runBlocking {
+    val job: Job = launch {
+        delay(1000)
+        println("Test")
     }
+}

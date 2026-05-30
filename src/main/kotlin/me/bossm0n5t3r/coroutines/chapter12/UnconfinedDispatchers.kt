@@ -1,5 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter12
 
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -8,8 +10,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.resume
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 suspend fun main(): Unit =
@@ -24,9 +24,7 @@ suspend fun main(): Unit =
         launch(Dispatchers.Unconfined) {
             println(Thread.currentThread().name) // Thread1
 
-            suspendCancellableCoroutine {
-                continuation = it
-            }
+            suspendCancellableCoroutine { continuation = it }
 
             println(Thread.currentThread().name) // Thread2
 

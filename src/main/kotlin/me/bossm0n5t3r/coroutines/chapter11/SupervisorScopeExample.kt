@@ -5,24 +5,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 
-fun main() =
-    runBlocking {
-        println("Before")
+fun main() = runBlocking {
+    println("Before")
 
-        supervisorScope {
-            launch {
-                delay(1000)
-                throw Error()
-            }
-
-            launch {
-                delay(2000)
-                println("Done")
-            }
+    supervisorScope {
+        launch {
+            delay(1000)
+            throw Error()
         }
 
-        println("After")
+        launch {
+            delay(2000)
+            println("Done")
+        }
     }
+
+    println("After")
+}
 
 // Before
 // (1 sec)

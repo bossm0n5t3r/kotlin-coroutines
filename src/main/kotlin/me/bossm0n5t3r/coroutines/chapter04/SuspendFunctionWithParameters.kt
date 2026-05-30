@@ -7,16 +7,10 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.coroutines.resume
 
-fun printUser(
-    token: String,
-    continuation: Continuation<*>,
-): Any {
+fun printUser(token: String, continuation: Continuation<*>): Any {
     val continuation =
         continuation as? PrintUserContinuation
-            ?: PrintUserContinuation(
-                continuation as Continuation<Unit>,
-                token,
-            )
+            ?: PrintUserContinuation(continuation as Continuation<Unit>, token)
 
     var result: Result<Any>? = continuation.result
     var userId: String? = continuation.userId
@@ -51,10 +45,8 @@ fun printUser(
     error("Impossible")
 }
 
-class PrintUserContinuation(
-    val completion: Continuation<Unit>,
-    val token: String,
-) : Continuation<String> {
+class PrintUserContinuation(val completion: Continuation<Unit>, val token: String) :
+    Continuation<String> {
     override val context: CoroutineContext
         get() = completion.context
 
@@ -80,34 +72,28 @@ fun main() {
     toStart()
 }
 
-private val executor =
-    Executors.newSingleThreadScheduledExecutor {
-        Thread(it, "scheduler").apply { isDaemon = true }
-    }
+private val executor = Executors.newSingleThreadScheduledExecutor {
+    Thread(it, "scheduler").apply { isDaemon = true }
+}
 
-data class User(
-    val id: String,
-    val name: String,
-)
+data class User(val id: String, val name: String)
 
 object ApiException : Throwable("Fake API exception")
 
-fun getUserId(
-    token: String,
-    continuation: Continuation<String>,
-): Any {
+fun getUserId(token: String, continuation: Continuation<String>): Any {
     executor.schedule({ continuation.resume("SomeId") }, 1000, TimeUnit.MILLISECONDS)
     return COROUTINE_SUSPENDED
 }
 
-fun getUserName(
-    userId: String,
-    continuation: Continuation<String>,
-): Any {
-    executor.schedule({
-        continuation.resume("SomeName")
-        //        continuation.resumeWithException(ApiException)
-    }, 1000, TimeUnit.MILLISECONDS)
+fun getUserName(userId: String, continuation: Continuation<String>): Any {
+    executor.schedule(
+        {
+            continuation.resume("SomeName")
+            //        continuation.resumeWithException(ApiException)
+        },
+        1000,
+        TimeUnit.MILLISECONDS,
+    )
     return COROUTINE_SUSPENDED
 }
 

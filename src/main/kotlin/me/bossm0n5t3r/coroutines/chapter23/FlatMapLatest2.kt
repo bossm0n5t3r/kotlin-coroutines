@@ -7,10 +7,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 
-private fun flowFrom(elem: String) =
-    flowOf(1, 2, 3)
-        .onEach { delay(1000) }
-        .map { "${it}_$elem " }
+private fun flowFrom(elem: String) = flowOf(1, 2, 3).onEach { delay(1000) }.map { "${it}_$elem " }
 
 @OptIn(ExperimentalCoroutinesApi::class)
 suspend fun main() {

@@ -9,16 +9,17 @@ private fun randomUniqueStrings(
     seed: Long = System.currentTimeMillis(),
 ): Sequence<String> =
     sequence {
-        val random = Random(seed)
-        while (true) {
-            val randomString =
-                (1..length)
-                    .map { _ -> random.nextInt(charPool.size) }
-                    .map(charPool::get)
-                    .joinToString("")
-            yield(randomString)
+            val random = Random(seed)
+            while (true) {
+                val randomString =
+                    (1..length)
+                        .map { _ -> random.nextInt(charPool.size) }
+                        .map(charPool::get)
+                        .joinToString("")
+                yield(randomString)
+            }
         }
-    }.distinct()
+        .distinct()
 
 fun main() {
     println(randomUniqueStrings(10).take(10).toList())

@@ -16,18 +16,15 @@ private suspend fun requestData2(): String {
     return "Data2"
 }
 
-private suspend fun askMultipleForData(): String =
-    coroutineScope {
-        select {
+private suspend fun askMultipleForData(): String = coroutineScope {
+    select {
             async { requestData1() }.onAwait { it }
             async { requestData2() }.onAwait { it }
-        }.also { coroutineContext.cancelChildren() }
-    }
+        }
+        .also { coroutineContext.cancelChildren() }
+}
 
-suspend fun main(): Unit =
-    coroutineScope {
-        println(askMultipleForData())
-    }
+suspend fun main(): Unit = coroutineScope { println(askMultipleForData()) }
 
 // (1 sec)
 // Data2

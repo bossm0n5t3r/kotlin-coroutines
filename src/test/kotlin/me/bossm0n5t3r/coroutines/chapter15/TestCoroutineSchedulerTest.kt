@@ -1,9 +1,9 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.test.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestCoroutineSchedulerTest {

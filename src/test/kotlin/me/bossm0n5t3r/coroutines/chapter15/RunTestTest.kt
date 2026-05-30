@@ -12,22 +12,20 @@ import org.junit.jupiter.api.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class RunTestTest {
     @Test
-    fun `runTest example`() =
-        runTest {
-            assertEquals(0, currentTime)
-            delay(1000)
-            assertEquals(1000, currentTime)
-        }
+    fun `runTest example`() = runTest {
+        assertEquals(0, currentTime)
+        delay(1000)
+        assertEquals(1000, currentTime)
+    }
 
     @Test
-    fun `runTest example 2`() =
-        runTest {
-            assertEquals(0, currentTime)
-            coroutineScope {
-                launch { delay(1000) }
-                launch { delay(1500) }
-                launch { delay(2000) }
-            }
-            assertEquals(2000, currentTime)
+    fun `runTest example 2`() = runTest {
+        assertEquals(0, currentTime)
+        coroutineScope {
+            launch { delay(1000) }
+            launch { delay(1500) }
+            launch { delay(2000) }
         }
+        assertEquals(2000, currentTime)
+    }
 }

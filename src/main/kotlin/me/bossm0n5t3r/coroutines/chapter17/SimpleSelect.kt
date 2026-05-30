@@ -28,10 +28,7 @@ private suspend fun askMultipleForData(): String {
     }
 }
 
-suspend fun main(): Unit =
-    coroutineScope {
-        println(askMultipleForData())
-    }
+suspend fun main(): Unit = coroutineScope { println(askMultipleForData()) }
 
 // (1 sec)
 // Data2

@@ -1,5 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.random.Random
+import kotlin.system.measureTimeMillis
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -9,8 +11,6 @@ import kotlinx.coroutines.test.TestCoroutineScheduler
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.random.Random
-import kotlin.system.measureTimeMillis
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class StandardTestDispatcherTest {
@@ -105,12 +105,11 @@ class StandardTestDispatcherTest {
         // how much time we wait here, it will not influence
         // the result
 
-        val time =
-            measureTimeMillis {
-                println("[${dispatcher.scheduler.currentTime}] Before")
-                dispatcher.scheduler.advanceUntilIdle()
-                println("[${dispatcher.scheduler.currentTime}] After")
-            }
+        val time = measureTimeMillis {
+            println("[${dispatcher.scheduler.currentTime}] Before")
+            dispatcher.scheduler.advanceUntilIdle()
+            println("[${dispatcher.scheduler.currentTime}] After")
+        }
 
         assertThat(time).isLessThan(50)
     }

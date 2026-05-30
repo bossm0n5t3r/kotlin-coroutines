@@ -5,16 +5,13 @@ import kotlinx.coroutines.flow.flow
 
 private class MyErrorInCatch2 : Throwable("My error")
 
-private val flowInCatch2 =
-    flow {
-        emit("Message1")
-        throw MyErrorInCatch2()
-    }
+private val flowInCatch2 = flow {
+    emit("Message1")
+    throw MyErrorInCatch2()
+}
 
 suspend fun main() {
-    flowInCatch2
-        .catch { emit("Error") }
-        .collect { println("Collected $it") }
+    flowInCatch2.catch { emit("Error") }.collect { println("Collected $it") }
 }
 
 // Collected Message1

@@ -6,24 +6,19 @@ import kotlinx.coroutines.reactor.asFlux
 import kotlinx.coroutines.rx3.asFlowable
 import kotlinx.coroutines.rx3.asObservable
 
-suspend fun main(): Unit =
-    coroutineScope {
-        val flow = flowOf(1, 2, 3, 4, 5)
+suspend fun main(): Unit = coroutineScope {
+    val flow = flowOf(1, 2, 3, 4, 5)
 
-        flow
-            .asFlux()
-            .doOnNext { print(it) } // 12345
-            .subscribe()
+    flow
+        .asFlux()
+        .doOnNext { print(it) } // 12345
+        .subscribe()
 
-        println()
+    println()
 
-        flow
-            .asFlowable()
-            .subscribe { print(it) } // 12345
+    flow.asFlowable().subscribe { print(it) } // 12345
 
-        println()
+    println()
 
-        flow
-            .asObservable()
-            .subscribe { print(it) } // 12345
-    }
+    flow.asObservable().subscribe { print(it) } // 12345
+}

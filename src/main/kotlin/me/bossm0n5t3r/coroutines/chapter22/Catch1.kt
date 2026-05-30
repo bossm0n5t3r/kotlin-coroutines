@@ -7,12 +7,11 @@ import kotlinx.coroutines.flow.onEach
 
 private class MyErrorInCatch1 : Throwable("My error")
 
-private val flowInCatch1: Flow<Int> =
-    flow {
-        emit(1)
-        emit(2)
-        throw MyErrorInCatch1()
-    }
+private val flowInCatch1: Flow<Int> = flow {
+    emit(1)
+    emit(2)
+    throw MyErrorInCatch1()
+}
 
 suspend fun main() {
     flowInCatch1

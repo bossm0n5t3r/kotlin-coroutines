@@ -32,9 +32,8 @@ private fun myFunction(continuation: Continuation<Unit>): Any {
     error("Impossible")
 }
 
-private class MyFunctionContinuationWithStatus(
-    val completion: Continuation<Unit>,
-) : Continuation<Unit> {
+private class MyFunctionContinuationWithStatus(val completion: Continuation<Unit>) :
+    Continuation<Unit> {
     override val context: CoroutineContext
         get() = completion.context
 
@@ -56,15 +55,11 @@ private class MyFunctionContinuationWithStatus(
     }
 }
 
-private val executor =
-    Executors.newSingleThreadScheduledExecutor {
-        Thread(it, "scheduler").apply { isDaemon = true }
-    }
+private val executor = Executors.newSingleThreadScheduledExecutor {
+    Thread(it, "scheduler").apply { isDaemon = true }
+}
 
-private fun delay(
-    timeMillis: Long,
-    continuation: Continuation<Unit>,
-): Any {
+private fun delay(timeMillis: Long, continuation: Continuation<Unit>): Any {
     executor.schedule({ continuation.resume(Unit) }, timeMillis, TimeUnit.MILLISECONDS)
     return COROUTINE_SUSPENDED
 }

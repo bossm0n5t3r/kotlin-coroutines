@@ -15,12 +15,11 @@ private fun CoroutineScope.log(msg: String) {
 fun main() =
     runBlocking(CoroutineName("main")) {
         log("Started") // [main] Started
-        val v1 =
-            async {
-                delay(500)
-                log("Running async") // [main] Running async
-                42
-            }
+        val v1 = async {
+            delay(500)
+            log("Running async") // [main] Running async
+            42
+        }
         launch {
             delay(1000)
             log("Running launch") // [main] Running launch

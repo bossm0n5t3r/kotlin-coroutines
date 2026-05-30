@@ -9,13 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
 
-private fun getFlow(): Flow<String> =
-    flow {
-        repeat(3) {
-            delay(1000)
-            emit("User$it")
-        }
+private fun getFlow(): Flow<String> = flow {
+    repeat(3) {
+        delay(1000)
+        emit("User$it")
     }
+}
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 suspend fun main() {

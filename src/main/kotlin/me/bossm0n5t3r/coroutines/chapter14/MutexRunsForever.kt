@@ -6,11 +6,7 @@ import kotlinx.coroutines.sync.withLock
 suspend fun main() {
     val mutex = Mutex()
     println("Started")
-    mutex.withLock {
-        mutex.withLock {
-            println("Will never be printed")
-        }
-    }
+    mutex.withLock { mutex.withLock { println("Will never be printed") } }
 }
 // Started
 // (runs forever)

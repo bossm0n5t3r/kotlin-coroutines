@@ -6,16 +6,12 @@ import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-fun main(): Unit =
-    runBlocking {
-        val job: Job =
-            launch {
-                delay(1000)
-            }
+fun main(): Unit = runBlocking {
+    val job: Job = launch { delay(1000) }
 
-        val parentJob: Job = coroutineContext.job
-        // or coroutineContext[Job]!!
-        assert(job != parentJob) // false
-        val parentChildren: Sequence<Job> = parentJob.children
-        assert(parentChildren.first() == job) // true
-    }
+    val parentJob: Job = coroutineContext.job
+    // or coroutineContext[Job]!!
+    assert(job != parentJob) // false
+    val parentChildren: Sequence<Job> = parentJob.children
+    assert(parentChildren.first() == job) // true
+}

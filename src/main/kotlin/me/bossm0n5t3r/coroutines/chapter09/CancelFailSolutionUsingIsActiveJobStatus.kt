@@ -7,16 +7,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-suspend fun main(): Unit =
-    coroutineScope {
-        val job = Job()
-        launch(job) {
-            do {
-                Thread.sleep(200)
-                println("Printing")
-            } while (isActive)
-        }
-        delay(1100)
-        job.cancelAndJoin()
-        println("Cancelled successfully")
+suspend fun main(): Unit = coroutineScope {
+    val job = Job()
+    launch(job) {
+        do {
+            Thread.sleep(200)
+            println("Printing")
+        } while (isActive)
     }
+    delay(1100)
+    job.cancelAndJoin()
+    println("Cancelled successfully")
+}

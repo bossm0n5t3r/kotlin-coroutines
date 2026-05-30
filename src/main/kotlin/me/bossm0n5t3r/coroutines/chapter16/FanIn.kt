@@ -23,27 +23,20 @@ private fun <T> CoroutineScope.fanIn(channels: List<ReceiveChannel<T>>): Receive
         }
     }
 
-private suspend fun sendString(
-    channel: SendChannel<String>,
-    text: String,
-    time: Long,
-) {
+private suspend fun sendString(channel: SendChannel<String>, text: String, time: Long) {
     while (true) {
         delay(time)
         channel.send(text)
     }
 }
 
-fun main() =
-    runBlocking {
-        val channel = Channel<String>()
-        launch { sendString(channel, "foo", 200L) }
-        launch { sendString(channel, "BAR!", 500L) }
-        repeat(50) {
-            println(channel.receive())
-        }
-        coroutineContext.cancelChildren()
-    }
+fun main() = runBlocking {
+    val channel = Channel<String>()
+    launch { sendString(channel, "foo", 200L) }
+    launch { sendString(channel, "BAR!", 500L) }
+    repeat(50) { println(channel.receive()) }
+    coroutineContext.cancelChildren()
+}
 
 // (200 ms)
 // foo

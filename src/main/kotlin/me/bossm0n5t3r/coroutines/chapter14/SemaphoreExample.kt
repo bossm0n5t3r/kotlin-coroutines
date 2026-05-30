@@ -6,19 +6,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 
-suspend fun main() =
-    coroutineScope {
-        val semaphore = Semaphore(2)
+suspend fun main() = coroutineScope {
+    val semaphore = Semaphore(2)
 
-        repeat(5) {
-            launch {
-                semaphore.withPermit {
-                    delay(1000)
-                    print(it)
-                }
+    repeat(5) {
+        launch {
+            semaphore.withPermit {
+                delay(1000)
+                print(it)
             }
         }
     }
+}
 
 // 01
 // (1 sec)

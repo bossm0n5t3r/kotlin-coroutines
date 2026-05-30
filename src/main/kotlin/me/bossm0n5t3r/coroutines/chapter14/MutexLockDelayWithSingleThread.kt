@@ -1,12 +1,12 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
+import kotlin.system.measureTimeMillis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.system.measureTimeMillis
 
 @OptIn(ExperimentalCoroutinesApi::class)
 suspend fun main() {
@@ -23,15 +23,8 @@ suspend fun main() {
 
     val repo = MessagesRepository()
 
-    val timeMillis =
-        measureTimeMillis {
-            coroutineScope {
-                repeat(5) {
-                    launch {
-                        repo.add("Message$it")
-                    }
-                }
-            }
-        }
+    val timeMillis = measureTimeMillis {
+        coroutineScope { repeat(5) { launch { repo.add("Message$it") } } }
+    }
     println(timeMillis) // 1044, 1039, 1038, ...
 }

@@ -15,9 +15,7 @@ private fun continueAfterSecond(continuation: Continuation<Unit>) {
 suspend fun main() {
     println("Before")
 
-    suspendCoroutine { continuation ->
-        continueAfterSecond(continuation)
-    }
+    suspendCoroutine { continuation -> continueAfterSecond(continuation) }
 
     println("After")
 }

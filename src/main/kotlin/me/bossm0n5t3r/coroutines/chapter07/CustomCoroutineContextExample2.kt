@@ -1,45 +1,34 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
-import kotlinx.coroutines.withContext
 import java.util.UUID
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.withContext
 
-private data class User(
-    val id: String,
-    val name: String,
-)
+private data class User(val id: String, val name: String)
 
 private abstract class UuidProviderContext : CoroutineContext.Element {
     abstract fun nextUuid(): String
 
     override val key: CoroutineContext.Key<*> = Key
 
-    companion object Key :
-        CoroutineContext.Key<UuidProviderContext>
+    companion object Key : CoroutineContext.Key<UuidProviderContext>
 }
 
 private class RealUuidProviderContext : UuidProviderContext() {
     override fun nextUuid(): String = UUID.randomUUID().toString()
 }
 
-private class FakeUuidProviderContext(
-    private val fakeUuid: String,
-) : UuidProviderContext() {
+private class FakeUuidProviderContext(private val fakeUuid: String) : UuidProviderContext() {
     override fun nextUuid(): String = fakeUuid
 }
 
 private suspend fun nextUuid(): String =
-    checkNotNull(coroutineContext[UuidProviderContext]) {
-        "UuidProviderContext not present"
-    }.nextUuid()
+    checkNotNull(coroutineContext[UuidProviderContext]) { "UuidProviderContext not present" }
+        .nextUuid()
 
 // function under test
-private suspend fun makeUser(name: String) =
-    User(
-        id = nextUuid(),
-        name = name,
-    )
+private suspend fun makeUser(name: String) = User(id = nextUuid(), name = name)
 
 suspend fun main() {
     // production case

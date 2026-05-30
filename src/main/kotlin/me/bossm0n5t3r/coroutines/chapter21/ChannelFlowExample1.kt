@@ -7,9 +7,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 
-data class UserInChannelFlowExample1(
-    val name: String,
-)
+data class UserInChannelFlowExample1(val name: String)
 
 interface UserApiInChannelFlowExample1 {
     suspend fun takePage(pageNumber: Int): List<UserInChannelFlowExample1>
@@ -21,32 +19,29 @@ class FakeUserApiInChannelFlowExample1 : UserApiInChannelFlowExample1 {
 
     override suspend fun takePage(pageNumber: Int): List<UserInChannelFlowExample1> {
         delay(1000) // suspending
-        return userInChannelFlowExample1s
-            .drop(pageSize * pageNumber)
-            .take(pageSize)
+        return userInChannelFlowExample1s.drop(pageSize * pageNumber).take(pageSize)
     }
 }
 
-fun allUsersFlowInChannelFlowExample1(api: UserApiInChannelFlowExample1): Flow<UserInChannelFlowExample1> =
-    flow {
-        var page = 0
-        do {
-            println("Fetching page $page")
-            val users = api.takePage(page++) // suspending
-            emitAll(users.asFlow())
-        } while (users.isNotEmpty())
-    }
+fun allUsersFlowInChannelFlowExample1(
+    api: UserApiInChannelFlowExample1
+): Flow<UserInChannelFlowExample1> = flow {
+    var page = 0
+    do {
+        println("Fetching page $page")
+        val users = api.takePage(page++) // suspending
+        emitAll(users.asFlow())
+    } while (users.isNotEmpty())
+}
 
 suspend fun main() {
     val api = FakeUserApiInChannelFlowExample1()
     val users = allUsersFlowInChannelFlowExample1(api)
-    val user =
-        users
-            .first {
-                println("Checking $it")
-                delay(1000) // suspending
-                it.name == "User3"
-            }
+    val user = users.first {
+        println("Checking $it")
+        delay(1000) // suspending
+        it.name == "User3"
+    }
     println(user)
 }
 

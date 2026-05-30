@@ -7,24 +7,14 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asFlow
 import reactor.core.publisher.Flux
 
-suspend fun main() =
-    coroutineScope {
-        Flux
-            .range(1, 5)
-            .asFlow()
-            .collect { print(it) } // 12345
+suspend fun main() = coroutineScope {
+    Flux.range(1, 5).asFlow().collect { print(it) } // 12345
 
-        println()
+    println()
 
-        Flowable
-            .range(1, 5)
-            .asFlow()
-            .collect { print(it) } // 12345
+    Flowable.range(1, 5).asFlow().collect { print(it) } // 12345
 
-        println()
+    println()
 
-        Observable
-            .range(1, 5)
-            .asFlow()
-            .collect { print(it) } // 12345
-    }
+    Observable.range(1, 5).asFlow().collect { print(it) } // 12345
+}

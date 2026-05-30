@@ -4,11 +4,10 @@ import kotlinx.coroutines.flow.flow
 
 private class MyErrorInUncaughtExceptions1 : Throwable("My error")
 
-private val flowInUncaughtExceptions1 =
-    flow {
-        emit("Message1")
-        throw MyErrorInUncaughtExceptions1()
-    }
+private val flowInUncaughtExceptions1 = flow {
+    emit("Message1")
+    throw MyErrorInUncaughtExceptions1()
+}
 
 suspend fun main() {
     try {

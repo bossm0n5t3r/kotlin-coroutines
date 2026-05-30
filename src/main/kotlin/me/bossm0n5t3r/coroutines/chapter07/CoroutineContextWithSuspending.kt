@@ -1,10 +1,10 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
+import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 private suspend fun printName() {
     println(coroutineContext[CoroutineName]?.name)

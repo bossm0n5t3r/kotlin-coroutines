@@ -4,17 +4,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-suspend fun main() =
-    coroutineScope {
-        repeat(1000) {
-            launch(Dispatchers.IO) {
-                Thread.sleep(200)
+suspend fun main() = coroutineScope {
+    repeat(1000) {
+        launch(Dispatchers.IO) {
+            Thread.sleep(200)
 
-                val threadName = Thread.currentThread().name
-                println("Running on thread: $threadName")
-            }
+            val threadName = Thread.currentThread().name
+            println("Running on thread: $threadName")
         }
     }
+}
 
 // Running on thread: DefaultDispatcher-worker-30
 // Running on thread: DefaultDispatcher-worker-2

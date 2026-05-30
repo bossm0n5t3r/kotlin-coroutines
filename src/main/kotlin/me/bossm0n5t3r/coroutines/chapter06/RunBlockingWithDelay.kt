@@ -7,23 +7,22 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 @OptIn(DelicateCoroutinesApi::class)
-fun main() =
-    runBlocking {
-        GlobalScope.launch {
-            delay(1000L)
-            println("World! ${Thread.currentThread().name}")
-        }
-        GlobalScope.launch {
-            delay(1000L)
-            println("World! ${Thread.currentThread().name}")
-        }
-        GlobalScope.launch {
-            delay(1000L)
-            println("World! ${Thread.currentThread().name}")
-        }
-        println("Hello,")
-        delay(2000L) // still needed
+fun main() = runBlocking {
+    GlobalScope.launch {
+        delay(1000L)
+        println("World! ${Thread.currentThread().name}")
     }
+    GlobalScope.launch {
+        delay(1000L)
+        println("World! ${Thread.currentThread().name}")
+    }
+    GlobalScope.launch {
+        delay(1000L)
+        println("World! ${Thread.currentThread().name}")
+    }
+    println("Hello,")
+    delay(2000L) // still needed
+}
 
 // Hello,
 // World! DefaultDispatcher-worker-2

@@ -7,19 +7,10 @@ import kotlinx.coroutines.withContext
 
 private var counter = 0
 
-fun main() =
-    runBlocking {
-        massiveRun {
-            counter++
-        }
-        println(counter) // 332598, 300346, 375650, ...
-    }
+fun main() = runBlocking {
+    massiveRun { counter++ }
+    println(counter) // 332598, 300346, 375650, ...
+}
 
 private suspend fun massiveRun(action: suspend () -> Unit) =
-    withContext(Dispatchers.Default) {
-        repeat(1000) {
-            launch {
-                repeat(1000) { action() }
-            }
-        }
-    }
+    withContext(Dispatchers.Default) { repeat(1000) { launch { repeat(1000) { action() } } } }

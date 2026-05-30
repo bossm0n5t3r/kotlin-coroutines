@@ -5,12 +5,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEmpty
 
-suspend fun main() =
-    coroutineScope {
-        flow<List<Int>> { delay(1000) }
-            .onEmpty { emit(emptyList()) }
-            .collect { println(it) }
-    }
+suspend fun main() = coroutineScope {
+    flow<List<Int>> { delay(1000) }.onEmpty { emit(emptyList()) }.collect { println(it) }
+}
 
 // (1 sec)
 // []

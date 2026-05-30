@@ -1,8 +1,8 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 fun main() {
     val name = "A name"

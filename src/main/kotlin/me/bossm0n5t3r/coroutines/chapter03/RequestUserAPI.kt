@@ -1,9 +1,9 @@
 package me.bossm0n5t3r.coroutines.chapter03
 
-import me.bossm0n5t3r.coroutines.common.User
 import kotlin.concurrent.thread
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import me.bossm0n5t3r.coroutines.common.User
 
 private fun requestUser(callback: (User) -> Unit) {
     thread {
@@ -12,12 +12,9 @@ private fun requestUser(callback: (User) -> Unit) {
     }
 }
 
-private suspend fun requestUser(): User =
-    suspendCoroutine { cont ->
-        requestUser { user ->
-            cont.resume(user)
-        }
-    }
+private suspend fun requestUser(): User = suspendCoroutine { cont ->
+    requestUser { user -> cont.resume(user) }
+}
 
 suspend fun main() {
     println("Before")

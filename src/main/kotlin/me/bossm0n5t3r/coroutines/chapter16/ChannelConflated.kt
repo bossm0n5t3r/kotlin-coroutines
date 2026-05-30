@@ -7,23 +7,22 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalCoroutinesApi::class)
-suspend fun main(): Unit =
-    coroutineScope {
-        val channel =
-            produce(capacity = Channel.CONFLATED) {
-                repeat(5) { index ->
-                    send(index * 2)
-                    delay(100)
-                    println("Sent")
-                }
+suspend fun main(): Unit = coroutineScope {
+    val channel =
+        produce(capacity = Channel.CONFLATED) {
+            repeat(5) { index ->
+                send(index * 2)
+                delay(100)
+                println("Sent")
             }
-
-        delay(1000)
-        for (element in channel) {
-            println(element)
-            delay(1000)
         }
+
+    delay(1000)
+    for (element in channel) {
+        println(element)
+        delay(1000)
     }
+}
 
 // Sent
 // (0.1 sec)

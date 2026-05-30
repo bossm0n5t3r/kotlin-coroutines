@@ -1,13 +1,11 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class CounterContext(
-    private val name: String,
-) : CoroutineContext.Element {
+class CounterContext(private val name: String) : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*> = Key
     private var nextNumber = 0
 
