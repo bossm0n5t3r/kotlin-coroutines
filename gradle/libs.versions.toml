@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.1.0"
+kotlin = "2.3.21"
 ktlint = "12.1.2"
 kotlinx-coroutines = "1.10.1"
 projectreactor = "3.7.2"
