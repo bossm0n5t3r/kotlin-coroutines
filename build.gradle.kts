@@ -1,14 +1,13 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.ktlint)
+    alias(libs.plugins.ktfmt)
 }
 
 group = "me.bossm0n5t3r.coroutines"
+
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 dependencies {
     implementation(libs.kotlinx.coroutines.core)
@@ -25,14 +24,8 @@ dependencies {
     testImplementation(libs.turbine)
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
+tasks.test { useJUnitPlatform() }
 
-kotlin {
-    jvmToolchain(25)
-}
+kotlin { jvmToolchain(libs.versions.java.get().toInt()) }
 
-ktlint {
-    version.set("1.5.0")
-}
+ktfmt { kotlinLangStyle() }
