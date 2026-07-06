@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -17,12 +18,12 @@ fun main() =
         log("Started") // [main] Started
         val v1 =
             async(CoroutineName("c1")) {
-                delay(500)
+                delay(500.milliseconds)
                 log("Running async") // [c1] Running async
                 42
             }
         launch(CoroutineName("c2")) {
-            delay(1000)
+            delay(1000.milliseconds)
             log("Running launch") // [c2] Running launch
         }
         log("The answer is ${v1.await()}")

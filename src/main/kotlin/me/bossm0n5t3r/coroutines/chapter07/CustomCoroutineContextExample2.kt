@@ -2,7 +2,7 @@ package me.bossm0n5t3r.coroutines.chapter07
 
 import java.util.UUID
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.withContext
 
 private data class User(val id: String, val name: String)
@@ -24,7 +24,12 @@ private class FakeUuidProviderContext(private val fakeUuid: String) : UuidProvid
 }
 
 private suspend fun nextUuid(): String =
-    checkNotNull(coroutineContext[UuidProviderContext]) { "UuidProviderContext not present" }
+    checkNotNull(
+            // coroutineContext[UuidProviderContext]
+            currentCoroutineContext()[UuidProviderContext]
+        ) {
+            "UuidProviderContext not present"
+        }
         .nextUuid()
 
 // function under test

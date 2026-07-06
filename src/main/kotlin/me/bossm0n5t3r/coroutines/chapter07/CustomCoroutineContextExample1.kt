@@ -1,7 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter07
 
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -18,7 +18,8 @@ class CounterContext(private val name: String) : CoroutineContext.Element {
 }
 
 private suspend fun printNext() {
-    coroutineContext[CounterContext]?.printNext()
+    // coroutineContext[CounterContext]?.printNext()
+    currentCoroutineContext()[CounterContext]?.printNext()
 }
 
 suspend fun main(): Unit =
