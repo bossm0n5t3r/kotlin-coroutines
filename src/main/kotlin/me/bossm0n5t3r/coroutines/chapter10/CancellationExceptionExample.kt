@@ -1,12 +1,14 @@
 package me.bossm0n5t3r.coroutines.chapter10
 
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private object MyNonPropagatingException : CancellationException() {
-    private fun readResolve(): Any = MyNonPropagatingException
+/** https://www.jetbrains.com/help/inspectopedia/ObjectInheritsException.html */
+private class MyNonPropagatingException : CancellationException() {
+    private fun readResolve(): Any = MyNonPropagatingException()
 }
 
 suspend fun main(): Unit = coroutineScope {
@@ -14,14 +16,14 @@ suspend fun main(): Unit = coroutineScope {
         // 1
         launch {
             // 2
-            delay(2000)
+            delay(2000.milliseconds)
             println("Will not be printed")
         }
-        throw MyNonPropagatingException // 3
+        throw MyNonPropagatingException() // 3
     }
     launch {
         // 4
-        delay(2000)
+        delay(2000.milliseconds)
         println("Will be printed")
     }
 }

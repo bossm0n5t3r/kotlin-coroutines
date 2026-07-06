@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter10
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -8,7 +9,7 @@ fun main(): Unit = runBlocking {
     // Don't wrap in a try-catch here. It will be ignored.
     try {
         launch {
-            delay(1000)
+            delay(1000.milliseconds)
             throw Error("Some error")
         }
     } catch (e: Throwable) {
@@ -17,7 +18,7 @@ fun main(): Unit = runBlocking {
     }
 
     launch {
-        delay(2000)
+        delay(2000.milliseconds)
         println("Will not be printed")
     }
 }

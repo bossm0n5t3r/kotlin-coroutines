@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter10
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.supervisorScope
@@ -9,12 +10,12 @@ private class MyException : Throwable()
 suspend fun main() = supervisorScope {
     val str1 =
         async<String> {
-            delay(1000)
+            delay(1000.milliseconds)
             throw MyException()
         }
 
     val str2 = async {
-        delay(2000)
+        delay(2000.milliseconds)
         "Text2"
     }
 
