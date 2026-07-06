@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter06
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -10,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 @OptIn(DelicateCoroutinesApi::class)
 fun main() = runBlocking {
     val resultDeferred: Deferred<Int> = GlobalScope.async {
-        delay(1000L)
+        delay(1000L.milliseconds)
         42
     }
     // do other stuff...
