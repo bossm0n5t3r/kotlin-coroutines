@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ private val mutex = Mutex()
 
 private suspend fun delayAndPrint() {
     mutex.lock()
-    delay(1000)
+    delay(1000.milliseconds)
     println("Done")
     mutex.unlock()
 }

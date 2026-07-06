@@ -1,14 +1,13 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalCoroutinesApi::class)
 suspend fun main() {
     class MessagesRepository {
         private val messages = mutableListOf<String>()
@@ -16,7 +15,7 @@ suspend fun main() {
 
         suspend fun add(message: String) =
             withContext(dispatcher) {
-                delay(1000) // we simulate network call
+                delay(1000.milliseconds) // we simulate network call
                 messages.add(message)
             }
     }

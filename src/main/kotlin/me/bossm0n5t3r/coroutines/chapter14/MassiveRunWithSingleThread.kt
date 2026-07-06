@@ -1,12 +1,10 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalCoroutinesApi::class)
 private val dispatcher = Dispatchers.IO.limitedParallelism(1)
 
 private var counter = 0

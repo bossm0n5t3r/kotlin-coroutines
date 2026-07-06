@@ -1,13 +1,12 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalCoroutinesApi::class)
 suspend fun main() {
     class UserDownloader(private val api: NetworkService) {
         private val users = mutableListOf<User>()
@@ -22,9 +21,10 @@ suspend fun main() {
             }
     }
 
+    @Suppress("DuplicatedCode")
     class FakeNetworkService : NetworkService {
         override suspend fun fetchUser(id: Int): User {
-            delay(2)
+            delay(2.milliseconds)
             return User("User$id")
         }
     }

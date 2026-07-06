@@ -1,6 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter14
 
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ suspend fun main() {
         private val mutex = Mutex()
 
         suspend fun add(message: String) = mutex.withLock {
-            delay(1000) // we simulate network call
+            delay(1000.milliseconds) // we simulate network call
             messages.add(message)
         }
     }
