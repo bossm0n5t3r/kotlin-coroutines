@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter12
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -14,6 +15,6 @@ suspend fun main(): Unit = coroutineScope {
             i++
         }
     }
-    delay(1000)
+    delay(1000.milliseconds)
     println(i) // 9762, 9804, 9813, ...
 }

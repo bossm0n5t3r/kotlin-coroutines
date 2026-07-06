@@ -2,6 +2,7 @@ package me.bossm0n5t3r.coroutines.chapter12
 
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,7 +18,7 @@ suspend fun main(): Unit =
         var continuation: Continuation<Unit>? = null
 
         launch(newSingleThreadContext("Thread2")) {
-            delay(1000)
+            delay(1000.milliseconds)
             continuation?.resume(Unit)
         }
 
@@ -28,7 +29,7 @@ suspend fun main(): Unit =
 
             println(Thread.currentThread().name) // Thread2
 
-            delay(1000)
+            delay(1000.milliseconds)
 
             println(Thread.currentThread().name)
             // kotlinx.coroutines.DefaultExecutor
