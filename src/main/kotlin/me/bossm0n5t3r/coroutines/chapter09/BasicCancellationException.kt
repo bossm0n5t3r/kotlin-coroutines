@@ -1,18 +1,20 @@
 package me.bossm0n5t3r.coroutines.chapter09
 
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@Suppress("CoroutineContextWithJob", "DEPRECATION")
 suspend fun main(): Unit = coroutineScope {
     val job = Job()
     launch(job) {
         try {
             repeat(1_000) { i ->
-                delay(200)
+                delay(200.milliseconds)
                 println("Printing $i")
             }
         } catch (e: CancellationException) {
@@ -20,8 +22,8 @@ suspend fun main(): Unit = coroutineScope {
             throw e
         }
     }
-    delay(1100)
+    delay(1100.milliseconds)
     job.cancelAndJoin()
     println("Cancelled successfully")
-    delay(1000)
+    delay(1000.milliseconds)
 }

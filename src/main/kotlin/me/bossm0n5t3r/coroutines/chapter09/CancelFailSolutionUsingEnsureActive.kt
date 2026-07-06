@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter09
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
@@ -7,6 +8,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
+@Suppress("CoroutineContextWithJob", "DEPRECATION")
 suspend fun main(): Unit = coroutineScope {
     val job = Job()
     launch(job) {
@@ -16,7 +18,7 @@ suspend fun main(): Unit = coroutineScope {
             println("Printing $num")
         }
     }
-    delay(1100)
+    delay(1100.milliseconds)
     job.cancelAndJoin()
     println("Cancelled successfully")
 }
