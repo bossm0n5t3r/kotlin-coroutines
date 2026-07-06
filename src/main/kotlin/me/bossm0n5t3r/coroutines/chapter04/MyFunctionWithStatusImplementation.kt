@@ -24,7 +24,7 @@ private fun myFunction(continuation: Continuation<Unit>): Any {
         }
     }
     if (continuation.label == 1) {
-        counter = (counter as Int) + 1
+        counter += 1
         println("Counter: $counter")
         println("After")
         return Unit
