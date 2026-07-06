@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter08
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -15,14 +16,14 @@ suspend fun main() = coroutineScope {
     println(job) // JobImpl{Completed}@ADD
 
     // launch is initially active by default
-    val activeJob = launch { delay(1000) }
+    val activeJob = launch { delay(1000.milliseconds) }
     println(activeJob) // StandaloneCoroutine{Active}@ADD
     // here we wait until this job is done
     activeJob.join() // (1 sec)
     println(activeJob) // StandaloneCoroutine{Completed}@ADD
 
     // launch started lazily is in New state
-    val lazyJob = launch(start = CoroutineStart.LAZY) { delay(1000) }
+    val lazyJob = launch(start = CoroutineStart.LAZY) { delay(1000.milliseconds) }
     println(lazyJob) // LazyStandaloneCoroutine{New}@ADD
     // we need to start it, to make it active
     lazyJob.start()

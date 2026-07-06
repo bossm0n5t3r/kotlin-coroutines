@@ -5,6 +5,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
+@Suppress("CoroutineContextWithJob")
 fun main(): Unit = runBlocking {
     val name = CoroutineName("Some name")
     val job = Job()
