@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter11
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -16,12 +17,12 @@ fun main() =
         log("Before")
 
         withContext(CoroutineName("Child 1")) {
-            delay(1000)
+            delay(1000.milliseconds)
             log("Hello 1")
         }
 
         withContext(CoroutineName("Child 2")) {
-            delay(1000)
+            delay(1000.milliseconds)
             log("Hello 2")
         }
 
