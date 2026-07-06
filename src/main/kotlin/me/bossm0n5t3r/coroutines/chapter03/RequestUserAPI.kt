@@ -12,6 +12,7 @@ private fun requestUser(callback: (User) -> Unit) {
     }
 }
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 private suspend fun requestUser(): User = suspendCoroutine { cont ->
     requestUser { user -> cont.resume(user) }
 }

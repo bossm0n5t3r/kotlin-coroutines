@@ -5,6 +5,7 @@ import kotlin.coroutines.suspendCoroutine
 
 private class MyException : Throwable("Just an exception")
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 suspend fun main() {
     try {
         suspendCoroutine<Unit> { cont -> cont.resumeWithException(MyException()) }

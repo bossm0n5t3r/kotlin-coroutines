@@ -3,6 +3,7 @@ package me.bossm0n5t3r.coroutines.chapter03
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 suspend fun main() {
     val i: Int = suspendCoroutine { cont -> cont.resume(42) }
     println(i) // 42

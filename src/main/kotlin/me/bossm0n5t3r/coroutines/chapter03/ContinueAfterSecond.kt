@@ -12,6 +12,7 @@ private fun continueAfterSecond(continuation: Continuation<Unit>) {
     }
 }
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 suspend fun main() {
     println("Before")
 

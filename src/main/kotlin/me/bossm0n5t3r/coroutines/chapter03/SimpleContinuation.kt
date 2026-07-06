@@ -3,6 +3,7 @@ package me.bossm0n5t3r.coroutines.chapter03
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 suspend fun main() { // <- suspend 가 붙은 main
     println("Before")
 

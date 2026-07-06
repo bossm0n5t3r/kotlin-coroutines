@@ -4,6 +4,7 @@ import kotlin.concurrent.thread
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 suspend fun main() { // <- suspend 가 붙은 main
     println("Before")
 

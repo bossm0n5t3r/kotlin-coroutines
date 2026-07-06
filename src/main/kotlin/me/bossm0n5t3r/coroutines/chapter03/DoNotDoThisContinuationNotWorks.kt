@@ -7,6 +7,7 @@ import kotlin.coroutines.suspendCoroutine
 // Do not do this
 private var continuation: Continuation<Unit>? = null
 
+@Suppress("SuspendCoroutineLacksCancellationGuarantees")
 private suspend fun suspendAndSetContinuation() {
     suspendCoroutine { cont -> continuation = cont }
 }
