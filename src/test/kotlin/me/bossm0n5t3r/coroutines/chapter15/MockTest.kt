@@ -2,6 +2,7 @@ package me.bossm0n5t3r.coroutines.chapter15
 
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.currentTime
@@ -26,17 +27,17 @@ class MockTest {
         val aProfile = Profile(generateRandomString())
         coEvery { userRepo.getName() } coAnswers
             {
-                delay(600)
+                delay(600.milliseconds)
                 aName
             }
         coEvery { userRepo.getFriends() } coAnswers
             {
-                delay(700)
+                delay(700.milliseconds)
                 someFriends
             }
         coEvery { userRepo.getProfile() } coAnswers
             {
-                delay(800)
+                delay(800.milliseconds)
                 aProfile
             }
         val useCase = FetchUserUseCase(userRepo)

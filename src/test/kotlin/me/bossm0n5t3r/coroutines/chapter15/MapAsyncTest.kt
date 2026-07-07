@@ -1,6 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -29,19 +30,19 @@ class MapAsyncTest {
         val transforms =
             listOf(
                 suspend {
-                    delay(3000)
+                    delay(3000.milliseconds)
                     "A"
                 },
                 suspend {
-                    delay(2000)
+                    delay(2000.milliseconds)
                     "B"
                 },
                 suspend {
-                    delay(4000)
+                    delay(4000.milliseconds)
                     "C"
                 },
                 suspend {
-                    delay(1000)
+                    delay(1000.milliseconds)
                     "D"
                 },
             )
@@ -83,11 +84,11 @@ class MapAsyncTest {
         val parentJob = launch {
             listOf("A").mapAsync {
                 job = currentCoroutineContext().job // refer to a job
-                delay(Long.MAX_VALUE)
+                delay(Long.MAX_VALUE.milliseconds)
             }
         }
 
-        delay(1000)
+        delay(1000.milliseconds)
         parentJob.cancel()
         assertEquals(true, job?.isCancelled) // referred job should be cancelled
     }

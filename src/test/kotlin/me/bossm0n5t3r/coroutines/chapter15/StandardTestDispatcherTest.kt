@@ -2,6 +2,7 @@ package me.bossm0n5t3r.coroutines.chapter15
 
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -21,9 +22,9 @@ class StandardTestDispatcherTest {
 
         CoroutineScope(testDispatcher).launch {
             println("Some work 1")
-            delay(1000)
+            delay(1000.milliseconds)
             println("Some work 2")
-            delay(1000)
+            delay(1000.milliseconds)
             println("Coroutine done")
         }
 
@@ -38,9 +39,9 @@ class StandardTestDispatcherTest {
 
         CoroutineScope(dispatcher).launch {
             println("Some work 1")
-            delay(1000)
+            delay(1000.milliseconds)
             println("Some work 2")
-            delay(1000)
+            delay(1000.milliseconds)
             println("Coroutine done")
         }
 
@@ -54,11 +55,11 @@ class StandardTestDispatcherTest {
         val testDispatcher = StandardTestDispatcher()
 
         CoroutineScope(testDispatcher).launch {
-            delay(1)
+            delay(1.milliseconds)
             println("Done1")
         }
         CoroutineScope(testDispatcher).launch {
-            delay(2)
+            delay(2.milliseconds)
             println("Done2")
         }
 
@@ -71,17 +72,17 @@ class StandardTestDispatcherTest {
         val testDispatcher = StandardTestDispatcher()
 
         CoroutineScope(testDispatcher).launch {
-            delay(2)
+            delay(2.milliseconds)
             print("Done")
         }
 
         CoroutineScope(testDispatcher).launch {
-            delay(4)
+            delay(4.milliseconds)
             print("Done2")
         }
 
         CoroutineScope(testDispatcher).launch {
-            delay(6)
+            delay(6.milliseconds)
             print("Done3")
         }
 
@@ -97,7 +98,7 @@ class StandardTestDispatcherTest {
         val dispatcher = StandardTestDispatcher()
 
         CoroutineScope(dispatcher).launch {
-            delay(1000)
+            delay(1000.milliseconds)
             println("Coroutine done")
         }
 

@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -14,7 +15,7 @@ class RunTestTest {
     @Test
     fun `runTest example`() = runTest {
         assertEquals(0, currentTime)
-        delay(1000)
+        delay(1000.milliseconds)
         assertEquals(1000, currentTime)
     }
 
@@ -22,9 +23,9 @@ class RunTestTest {
     fun `runTest example 2`() = runTest {
         assertEquals(0, currentTime)
         coroutineScope {
-            launch { delay(1000) }
-            launch { delay(1500) }
-            launch { delay(2000) }
+            launch { delay(1000.milliseconds) }
+            launch { delay(1500.milliseconds) }
+            launch { delay(2000.milliseconds) }
         }
         assertEquals(2000, currentTime)
     }

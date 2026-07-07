@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -14,12 +15,12 @@ class UnconfinedTestDispatcherTest {
     fun `StandardTestDispatcher vs UnconfinedTestDispatcher`() {
         CoroutineScope(StandardTestDispatcher()).launch {
             print("A")
-            delay(1)
+            delay(1.milliseconds)
             print("B")
         }
         CoroutineScope(UnconfinedTestDispatcher()).launch {
             print("C")
-            delay(1)
+            delay(1.milliseconds)
             print("D")
         }
         // only C will be printed

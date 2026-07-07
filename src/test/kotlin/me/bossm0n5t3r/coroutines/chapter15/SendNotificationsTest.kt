@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -25,7 +26,7 @@ class SendNotificationsTest {
 
         override suspend fun send(notification: Notification) {
             notificationsSent.add(notification)
-            delay(delayMillis)
+            delay(delayMillis.milliseconds)
         }
     }
 
@@ -47,7 +48,7 @@ class SendNotificationsTest {
 
         override suspend fun markAsSent(id: Int) {
             notificationsMarkedAsSent.add(id)
-            delay(delayMillis)
+            delay(delayMillis.milliseconds)
         }
     }
 

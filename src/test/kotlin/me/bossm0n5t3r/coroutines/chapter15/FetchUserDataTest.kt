@@ -1,5 +1,6 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -44,17 +45,17 @@ class FetchUserDataTest {
 
     class FakeUserDataRepository : UserDataRepository {
         override suspend fun getName(): String {
-            delay(1000)
+            delay(1000.milliseconds)
             return "Ben"
         }
 
         override suspend fun getFriends(): List<Friend> {
-            delay(1000)
+            delay(1000.milliseconds)
             return listOf(Friend("some-friend-id-1"))
         }
 
         override suspend fun getProfile(): Profile {
-            delay(1000)
+            delay(1000.milliseconds)
             return Profile("Example description")
         }
     }

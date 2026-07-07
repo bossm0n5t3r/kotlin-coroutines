@@ -1,6 +1,7 @@
 package me.bossm0n5t3r.coroutines.chapter15
 
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -18,16 +19,16 @@ class TestScopeTest {
         val scope = TestScope()
 
         scope.launch {
-            delay(1000)
+            delay(1000.milliseconds)
             println("First done")
-            delay(1000)
+            delay(1000.milliseconds)
             println("Coroutine done")
         }
 
         println("[${scope.currentTime}] Before") // [0] Before
         assertEquals(0, scope.currentTime)
 
-        scope.advanceTimeBy(1000)
+        scope.advanceTimeBy(1000.milliseconds)
         scope.runCurrent() // First done
         println("[${scope.currentTime}] Middle") // [1000] Middle
         assertEquals(1000, scope.currentTime)
